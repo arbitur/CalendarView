@@ -46,7 +46,7 @@ public struct CalendarEvent {
     }
 }
 
-public protocol CalendarViewDataSource {
+public protocol CalendarViewDataSource: AnyObject {
     func startDate() -> Date
     func endDate() -> Date
     /* optional */
@@ -67,7 +67,7 @@ extension CalendarViewDataSource {
     }
 }
 
-public protocol CalendarViewDelegate {
+public protocol CalendarViewDelegate: AnyObject {
     
     func calendar(_ calendar : CalendarView, didScrollToMonth date : Date) -> Void
     func calendar(_ calendar : CalendarView, didSelectDate date : Date, withEvents events: [CalendarEvent]) -> Void
@@ -136,8 +136,8 @@ public class CalendarView: UIView {
     public var enableDeslection = true
     public var marksWeekends = true
     
-    public var delegate: CalendarViewDelegate?
-    public var dataSource: CalendarViewDataSource?
+    public weak var delegate: CalendarViewDelegate?
+    public weak var dataSource: CalendarViewDataSource?
     
     #if swift(>=4.2)
     public var direction : UICollectionView.ScrollDirection = .horizontal {
